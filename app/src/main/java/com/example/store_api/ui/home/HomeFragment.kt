@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.store_api.AdapterList
 import com.example.store_api.databinding.FragmentHomeBinding
+import com.google.android.material.transition.MaterialContainerTransform
 import com.loopj.android.http.AsyncHttpClient
 import com.loopj.android.http.AsyncHttpResponseHandler
 import cz.msebera.android.httpclient.Header
@@ -30,11 +31,13 @@ class HomeFragment : Fragment() {
     ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
-
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
+
         getProducts()
         return root
     }
+
+
 
     private fun getProducts() {
         binding.loading1.visibility = View.VISIBLE

@@ -11,4 +11,6 @@
     <string name="textview12">TextView12</string>
     <string name="textview23">TextView23</string>
     <string name="todo">TODO</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

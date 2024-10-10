@@ -33,6 +33,7 @@ class detailEventActivity : AppCompatActivity() {
         setContentView(binding.root)
         val id = intent.getIntExtra(EXTRA_ID,0)
 
+
         getDataFromId(id)
 
         binding.btnBackHomeEvent.setOnClickListener{
@@ -41,17 +42,20 @@ class detailEventActivity : AppCompatActivity() {
         }
 
     }
+    private fun removeHtmlTags(html: String): String {
+        return html.replace("<[^>]*>".toRegex(), "") // Menghapus tag HTML
+    }
+
 
     private fun  getDataFromId (id : Int){
-
+        binding.progressDetail.visibility = View.VISIBLE
         val client = AsyncHttpClient()
        val url = "https://event-api.dicoding.dev/events/$id"
         client.get(url,object : AsyncHttpResponseHandler(){
             override fun onSuccess(statusCode: Int, headers: Array<Header>, responseBody: ByteArray) {
                 // Jika koneksi berhasil
-
+                binding.progressDetail.visibility = View.GONE
                 val result = String(responseBody)
-
                 try {
                     val json = JSONObject(result)
                     val res = json.getJSONObject("event")
@@ -69,7 +73,7 @@ class detailEventActivity : AppCompatActivity() {
                         .load(gambar)
                         .into(binding.imageEvent)
                     binding.judulEvent.text = nama
-                    binding.deskripsievent.text = deskripsi
+                    binding.deskripsievent.text = removeHtmlTags(deskripsi)
                     binding.waktu.text = tanggal
 
                     binding.btnKirimlinkEvent.setOnClickListener {
@@ -78,7 +82,7 @@ class detailEventActivity : AppCompatActivity() {
                         startActivity(openLinkIntent)
                     }
 
-                    binding.quota.text = "Sisa Kouta : ${quotas.toString()}"
+                    binding.quota.text = "Sisa Kouta : ${if (quotas == 0) "Kouta Terpenuhi" else quotas}"
                     binding.owner.text = owner
 
 
@@ -94,8 +98,8 @@ class detailEventActivity : AppCompatActivity() {
                 responseBody: ByteArray?,
                 error: Throwable?
             ) {
-//                binding.loading.visibility = View.GONE
-                // Log the error or show a message to the user
+                binding.progressDetail.visibility = View.GONE
+                // Log the error
                 Log.e("DetailEventActivity", "Failed to fetch data: $error")
                 Toast.makeText(this@detailEventActivity, "Failed to load event details", Toast.LENGTH_SHORT).show()
             }
