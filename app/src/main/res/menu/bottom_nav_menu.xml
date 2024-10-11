@@ -15,4 +15,14 @@
         android:icon="@drawable/baseline_manage_search_24"
         android:title="search" />
 
+    <item
+        android:id="@+id/navigation_favorite"
+        android:icon="@drawable/baseline_bookmark_24"
+        android:title="favorite" />
+
+    <item
+        android:id="@+id/navigation_setting"
+        android:icon="@drawable/baseline_settings_24"
+        android:title="setting" />
+
 </menu>

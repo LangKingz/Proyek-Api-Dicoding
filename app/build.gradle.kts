@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    id("kotlin-kapt")
 }
 
 android {
@@ -44,7 +45,9 @@ android {
 
 dependencies {
     implementation(libs.android.async.http)
-
+    implementation(libs.androidx.room.runtime)
+    implementation("androidx.room:room-ktx:2.6.1")
+    kapt(libs.androidx.room.compiler)
     implementation (libs.glide)
     implementation(libs.androidx.activity)
     annotationProcessor (libs.compiler)

@@ -2,20 +2,22 @@
     <!-- Base application theme. -->
     <style name="Theme.Store_api" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <!-- Primary brand color. -->
+        <item name="android:textColor">@color/black</item>
+
         <item name="colorPrimary">@color/purple_500</item>
         <item name="colorPrimaryVariant">@color/purple_700</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/teal_200</item>
         <item name="colorSecondaryVariant">@color/teal_700</item>
-        <item name="colorOnSecondary">@color/black</item>
+        <item name="colorOnSecondary">@color/white</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
 
     </style>
     <style name="ImageViewShape" parent="">
-        <item name="cornerSize">20dp</item> <!-- Atur sesuai keinginan -->
+        <item name="cornerSize">20dp</item>
     </style>
     <style name="oval" parent="">
         <item name="cornerSize">20dp</item>

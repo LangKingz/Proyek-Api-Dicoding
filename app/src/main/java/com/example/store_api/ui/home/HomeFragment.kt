@@ -38,8 +38,8 @@ class HomeFragment : Fragment() {
     }
 
 
-
     private fun getProducts() {
+
         binding.loading1.visibility = View.VISIBLE
         val client = AsyncHttpClient()
         val url = "https://event-api.dicoding.dev/events?active=0"
@@ -50,32 +50,33 @@ class HomeFragment : Fragment() {
                 headers: Array<Header>?,
                 responseBody: ByteArray
             ) {
-                binding.loading1.visibility = View.GONE
-                val result = String(responseBody)
-                try {
-                    val jsonObject = JSONObject(result)
-                    val message = jsonObject.getString("message")
-                    val event = jsonObject.getJSONArray("listEvents")
 
-                    for (i in 0 until event.length()){
-                        val eventObject = event.getJSONObject(i)
-                        val id = eventObject.getString("id")
-                        val name = eventObject.getString("name")
-                        val logo = eventObject.getString("imageLogo")
-                        val category = eventObject.getString("category")
-                        val imageUrl = eventObject.getString("mediaCover")
+                if (isAdded && _binding != null) {
+                    binding.loading1.visibility = View.GONE
+                    val result = String(responseBody)
+                    try {
+                        val jsonObject = JSONObject(result)
+                        val message = jsonObject.getString("message")
+                        val event = jsonObject.getJSONArray("listEvents")
 
+                        for (i in 0 until event.length()) {
+                            val eventObject = event.getJSONObject(i)
+                            val id = eventObject.getString("id")
+                            val name = eventObject.getString("name")
+                            val logo = eventObject.getString("imageLogo")
+                            val category = eventObject.getString("category")
+                            val imageUrl = eventObject.getString("mediaCover")
 
-                        val item = "$name;$category;$logo;$imageUrl;$id"
-                        listReview.add(item)
+                            val item = "$name;$category;$logo;$imageUrl;$id"
+                            listReview.add(item)
+                        }
+                        val adapter = AdapterList(listReview)
+                        binding.recyclerView.adapter = adapter
+                    } catch (e: Exception) {
+                        Toast.makeText(requireContext(), "Error: ${e.message}", Toast.LENGTH_SHORT).show()
+                        e.printStackTrace()
                     }
-                    val adapter = AdapterList(listReview)
-                    binding.recyclerView.adapter = adapter
-                }catch (e: Exception) {
-                    Toast.makeText(requireContext(), "Error: ${e.message}", Toast.LENGTH_SHORT).show()
-                    e.printStackTrace()
                 }
-
             }
 
             override fun onFailure(
@@ -84,8 +85,10 @@ class HomeFragment : Fragment() {
                 responseBody: ByteArray?,
                 error: Throwable
             ) {
-                binding.loading1.visibility = View.GONE
-                Toast.makeText(requireContext(), "Error: ${error.message}", Toast.LENGTH_SHORT).show()
+                if (isAdded && _binding != null) {
+                    binding.loading1.visibility = View.GONE
+                    Toast.makeText(requireContext(), "Error: ${error.message}", Toast.LENGTH_SHORT).show()
+                }
             }
         })
     }

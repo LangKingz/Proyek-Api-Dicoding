@@ -3,19 +3,17 @@ package com.example.store_api
 import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.store_api.Detail.detailEvent.detailEventActivity
+import com.example.store_api.databinding.ItemListBinding // Import your generated binding class
 
 class AdapterList(private val listReview: ArrayList<String>) : RecyclerView.Adapter<AdapterList.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_list,parent,false)
-        return ViewHolder(view)
+        val binding = ItemListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return ViewHolder(binding)
     }
 
     override fun getItemCount(): Int {
@@ -32,32 +30,24 @@ class AdapterList(private val listReview: ArrayList<String>) : RecyclerView.Adap
             val imageUrl = splitData[3]
             val id = splitData[4]
 
-            holder.title.text = title
-            holder.tag.text = tag
+            holder.binding.title.text = title
+            holder.binding.kategori.text = tag
             Glide.with(holder.itemView.context)
                 .load(logo)
-                .into(holder.logo)
+                .into(holder.binding.logo)
             Glide.with(holder.itemView.context)
                 .load(imageUrl)
-                .into(holder.image)
+                .into(holder.binding.ItemImage)
 
             holder.itemView.setOnClickListener {
                 val moveWithId = Intent(it.context, detailEventActivity::class.java)
                 moveWithId.putExtra(detailEventActivity.EXTRA_ID, id.toInt())
                 it.context.startActivity(moveWithId)
             }
-        }else{
+        } else {
             Log.d("AdapterList", "Data tidak lengkap")
         }
-
     }
 
-
-    class ViewHolder(view : View) : RecyclerView.ViewHolder(view) {
-        val title : TextView = view.findViewById(R.id.title)
-        val logo : ImageView = view.findViewById(R.id.logo)
-        val tag: TextView = view.findViewById(R.id.kategori)
-        val image: ImageView = view.findViewById(R.id.ItemImage)
-
-    }
+    class ViewHolder(val binding: ItemListBinding) : RecyclerView.ViewHolder(binding.root) // Use binding as a parameter
 }

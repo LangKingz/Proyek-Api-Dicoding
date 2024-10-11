@@ -10,14 +10,13 @@ import android.view.inputmethod.EditorInfo
 import android.widget.SearchView
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.store_api.AdapterSearch
+import com.example.store_api.AdapterList
 import com.example.store_api.R
 import com.example.store_api.databinding.FragmentSearchBinding
 import com.loopj.android.http.AsyncHttpClient
 import com.loopj.android.http.AsyncHttpResponseHandler
 import cz.msebera.android.httpclient.Header
 import org.json.JSONObject
-
 
 class SearchFragment : Fragment() {
 
@@ -31,6 +30,7 @@ class SearchFragment : Fragment() {
     ): View? {
         _binding = FragmentSearchBinding.inflate(inflater,container,false)
         binding.progressBar4.visibility = View.GONE
+        binding.Text.text = "Search Event"
         val root : View = binding.root
         binding.searchRe.layoutManager = LinearLayoutManager(requireContext())
         binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
@@ -51,6 +51,7 @@ class SearchFragment : Fragment() {
     }
 
     private fun getSearch(query:String){
+        binding.Text.visibility = View.GONE
         binding.progressBar4.visibility = View.VISIBLE
         val url = "https://event-api.dicoding.dev/events?active=-1&q=$query"
         val clients = AsyncHttpClient()
@@ -76,7 +77,7 @@ class SearchFragment : Fragment() {
                         val item = "$name;$category;$logo;$imageUrl;$id"
                         listSearch.add(item)
                     }
-                    val adapter = AdapterSearch(listSearch)
+                    val adapter = AdapterList(listSearch)
                     binding.searchRe.adapter = adapter
                 }catch (e:Exception){
                     Toast.makeText(requireContext(), "Error: ${e.message}", Toast.LENGTH_SHORT).show()
