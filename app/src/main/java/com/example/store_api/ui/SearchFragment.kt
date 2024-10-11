@@ -23,6 +23,7 @@ class SearchFragment : Fragment() {
     private var _binding : FragmentSearchBinding? = null
     private val binding get() = _binding!!
     private val listSearch = ArrayList<String>()
+    private val client = AsyncHttpClient()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -108,6 +109,7 @@ class SearchFragment : Fragment() {
 
     override fun onDestroy() {
         super.onDestroy()
+        client.cancelAllRequests(true)
         _binding = null
     }
 

@@ -44,6 +44,8 @@ android {
 }
 
 dependencies {
+    implementation(libs.androidx.lifecycle.livedata.ktx)
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.android.async.http)
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.room.ktx)
