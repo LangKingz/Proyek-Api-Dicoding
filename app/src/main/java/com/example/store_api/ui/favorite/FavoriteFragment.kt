@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.store_api.AdapterFav
-import com.example.store_api.R
 import com.example.store_api.data.room.FavoriteDao
 import com.example.store_api.data.sqlite.FavoriteDatabase
 import com.example.store_api.databinding.FragmentFavoriteBinding

@@ -30,7 +30,7 @@ class SearchFragment : Fragment() {
     ): View? {
         _binding = FragmentSearchBinding.inflate(inflater,container,false)
         binding.progressBar4.visibility = View.GONE
-        binding.Text.text = "Search Event"
+        binding.Text.text = "Tidak Ada Pencarian"
         val root : View = binding.root
         binding.searchRe.layoutManager = LinearLayoutManager(requireContext())
         binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
@@ -77,8 +77,14 @@ class SearchFragment : Fragment() {
                         val item = "$name;$category;$logo;$imageUrl;$id"
                         listSearch.add(item)
                     }
-                    val adapter = AdapterList(listSearch)
-                    binding.searchRe.adapter = adapter
+                    if(listSearch.isEmpty()) {
+                        listSearch.clear()
+                        binding.Text.visibility = View.VISIBLE
+                        binding.Text.text = "Tidak Hasil Pencarian kamu :("
+                    }else{
+                        val adapter = AdapterList(listSearch)
+                        binding.searchRe.adapter = adapter
+                    }
                 }catch (e:Exception){
                     Toast.makeText(requireContext(), "Error: ${e.message}", Toast.LENGTH_SHORT).show()
                     e.printStackTrace()
@@ -95,6 +101,9 @@ class SearchFragment : Fragment() {
                 Toast.makeText(requireContext(), "Error: ${error?.message}", Toast.LENGTH_SHORT).show()
             }
         })
+
+
+
     }
 
     override fun onDestroy() {

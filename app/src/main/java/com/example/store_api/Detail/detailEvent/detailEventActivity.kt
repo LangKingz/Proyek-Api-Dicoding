@@ -153,7 +153,7 @@ class detailEventActivity : AppCompatActivity() {
 
                     binding.btnKirimlinkEvent.setOnClickListener {
                         val openLinkIntent = Intent(Intent.ACTION_VIEW)
-                        openLinkIntent.data = link?.toUri()
+                        openLinkIntent.data = link.toUri()
                         startActivity(openLinkIntent)
                     }
 

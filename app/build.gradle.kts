@@ -46,7 +46,7 @@ android {
 dependencies {
     implementation(libs.android.async.http)
     implementation(libs.androidx.room.runtime)
-    implementation("androidx.room:room-ktx:2.6.1")
+    implementation(libs.androidx.room.ktx)
     kapt(libs.androidx.room.compiler)
     implementation (libs.glide)
     implementation(libs.androidx.activity)
